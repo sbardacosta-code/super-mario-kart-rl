@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "super-mario-kart-rl"
+version = "0.1.0"
+description = "Local, evidence-first Super Mario Kart classroom experiments"
+requires-python = ">=3.13,<3.14"
+dependencies = ["stable-retro==1.0.1", "stable-baselines3==2.9.0", "gymnasium==1.3.0", "pillow", "matplotlib", "psutil", "imageio", "imageio-ffmpeg"]
+
+[tool.setuptools.packages.find]
+include = ["kart_rl*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

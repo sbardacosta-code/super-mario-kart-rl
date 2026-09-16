@@ -11,9 +11,9 @@ It is a public GitHub Markdown index. No account is needed to read it. Keeping t
 From this repository, review the files, then:
 
 ```sh
-.venv/bin/python -m smb3_rl.report
-.venv/bin/python -m smb3_rl.publish audit
-git add README.md .gitignore pyproject.toml requirements-lock.txt THIRD_PARTY_LICENSES.txt smb3_rl tests configs docs sessions archive
+.venv/bin/python -m kart_rl.report
+.venv/bin/python -m kart_rl.publish audit
+git add README.md .gitignore pyproject.toml requirements-lock.txt THIRD_PARTY_LICENSES.txt kart_rl tests configs integrations docs sessions
 git diff --cached --check
 git diff --cached --stat
 git commit -m 'Archive classroom experiment evidence'
@@ -27,7 +27,7 @@ The audit rejects common game/model payloads, non-allowlisted binary files, brok
 After a session has created model stages:
 
 ```sh
-.venv/bin/python -m smb3_rl.publish release --session SESSION
+.venv/bin/python -m kart_rl.publish release --session SESSION
 ```
 
 This explicitly invokes GitHub release publication outside the gameplay loop. The script validates model hashes and ZIP members, refuses an existing release, uploads every saved stage including regressions, downloads all assets to a temporary directory, and checks their SHA-256 hashes. It writes `sessions/SESSION/release.json` only after verification. Add a link to that file and the Release in the session report, then commit and push. It never uploads arbitrary ZIPs, ROMs, save states, or the private folder. Do not count publication as complete if the command fails or download hashes disagree.

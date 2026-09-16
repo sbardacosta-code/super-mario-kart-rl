@@ -1,61 +1,53 @@
-# Setup and operation
+# Setup, pilot, stop and resume
 
-## Tested machine and dependencies
+The active project is SMB3, despite the retained `super-mario-kart-rl` folder and GitHub name. Run commands from that folder. The Mario Bros. 1 repository is not needed.
 
-Apple M4 MacBook Pro, 10 CPU cores, 16 GB memory, macOS 26.6.2, arm64 Python 3.13.15. Native wheel installation succeeded for Stable-Retro 1.0.1, Gymnasium 1.3.0, Stable Baselines3 2.9.0, PyTorch 2.14.0, and NumPy 2.5.3. Full versions are pinned in [requirements-lock.txt](../requirements-lock.txt). CPU with one PyTorch thread is the initial reproducible setting. MPS was unavailable in the tested process; no GPU performance claim is made.
+## Environment
 
-Use Python 3.13 from your local Python installation, then run the setup commands in the README. The project's existing `.venv` on the preparation Mac is already installed. It uses a Python runtime from the earlier local teaching workspace; do not delete that runtime without recreating this virtual environment using another Python 3.13 installation. The lock is the tested Mac environment, not a promise of cross-platform support.
+Test machine: Apple M4, 16 GB RAM, macOS 26.6.2, arm64 Python 3.13.15. CPU / one PyTorch thread is used. Install `requirements-lock.txt` in `.venv`; run `pip check` and the tests. The active NES dependencies are gym-super-mario-bros 9.1.0, nes-py 9.0.1, Gymnasium 1.3.0 and Stable Baselines3 2.9.0. Stable-Retro was removed from this environment because its pyglet requirement conflicts with nes-py. Its old dependency lock remains in the Kart archive.
 
-Stable-Retro now uses `import stable_retro`; `import retro` emits a deprecation warning. Always specify `render_mode='rgb_array'` in headless scripts. The default human display failed in this execution context. There is no need to install Docker for the successful smoke test.
+The existing `.venv` uses a pre-existing Python runtime. To make the project independent of that runtime's location, recreate `.venv` using any compatible arm64 Python 3.13 installation. No game files need to be taken from the Mario Bros. 1 project.
 
-## Supply and validate the game
-
-1. Read [ROM requirements](ROM.md). Import your local file:
-
-   ```sh
-   .venv/bin/python -m kart_rl.integration import-rom /absolute/path/to/your-game.sfc
-   ```
-
-2. Create a local start state for Mario / Mario Circuit 1 / Time Trial. Use a copy of the configuration with `state: null` under `private/` to boot the game. `kart_rl.integration probe` runs a JSON button/frame plan and can save a state with `--save-state private/integrations/MarioKart-Snes-v0/MarioCircuit1-Mario-TimeTrial.state`. No menu timing is assumed before observing this ROM. A suitable start is the beginning of lap one with the countdown finished; verify it visually and calibrate lap/checkpoint values.
-3. Complete [validation](VALIDATION.md). Calibrate `checkpoint_count`, checkpoint numbering/order, `lap_start`, and frame timing. If mapping is noncontiguous or direction is reversed, change the adapter and tests; do not guess a count to bypass the gate.
-4. Commit the tested source/configuration, record validation with file hashes, and rerun the tests. Training rejects missing or stale evidence.
-
-## Authorized next step: bounded pilot
-
-Only after the game checks pass:
+## Validation
 
 ```sh
-MPLCONFIGDIR=.cache/matplotlib .venv/bin/python -m kart_rl.session \
-  --session YYYY-MM-DD-pilot --pilot \
-  --budget-note 'User requested a 10–15-minute benchmark and training pilot'
+.venv/bin/python -m smb3_rl.validate
 ```
 
-The pilot targets a 12-minute total wall-clock session, reserving time for evaluation. It includes a fresh PPO initial checkpoint, baseline evaluations, paired recording-overhead attempts, one training segment, a stage checkpoint, and a final checkpoint. Training time is whatever remains after baseline costs, capped at 10 minutes; the pilot can be shorter if stopped or if prerequisites fail. Finishing the current optimizer update, saving, and report generation can add a small shutdown tail. Evaluations have wall limits and may be incomplete. Report actual duration, never label requested duration as observed training time. No long training follows automatically.
+The validation suite checks ten repeatable resets/replays, controls, pixels, exact timeout frames, death and completion, reward reuse, and a regression for the upstream false-clear bug. It uses a saved scripted validation action sequence to reproduce a genuine successful run; this controller is not PPO and is not used to train the model. See the validation report for evidence and limitations. The archived JSON contains the exact runtime/ROM/adapter/configuration fingerprints. A changed adapter or configuration requires revalidation. If revalidating on a new machine, copy the published scripted action list into `.cache/clear-controller-actions.json` first. Do not overwrite published evidence: run in a new validation folder and update the configuration for a new protocol when changes are substantive.
 
-After reviewing the pilot, ask the user to choose the longer active training budget. There is deliberately no default long budget and no automatic three-hour run. Once chosen, replace `MINUTES` and the note:
+## Bounded pilot
 
 ```sh
-MPLCONFIGDIR=.cache/matplotlib .venv/bin/python -m kart_rl.session \
-  --session YYYY-MM-DD-session-01 --active-minutes MINUTES \
-  --budget-note 'User selected MINUTES active training minutes after reviewing the pilot'
+MPLCONFIGDIR=.cache/matplotlib .venv/bin/python -m smb3_rl.session \
+  --session YYYY-MM-DD-smb3-pilot --pilot \
+  --budget-note 'User requested the bounded 10–15-minute local pilot'
 ```
 
-Evaluation, saving, and reporting add wall time beyond that active-training budget. A 15-minute stage boundary may finish a PPO update just after the target time. Checkpoints do not depend on a guessed frames-per-second rate. Keep the Mac awake and connected to power; optional `caffeinate -i` can prefix the Python command. Training is entirely local.
+This targets a 12-minute overall session, with at most ten active training minutes and time reserved for evaluation. Setup, baseline and recording costs reduce available training time. An optimizer update/save can add a small shutdown tail. Actual time is recorded; the requested budget is never reported as time measured. A short aborted run is labeled accordingly.
 
-## Stop, save, resume
+After the pilot, the user chooses the longer active-training budget. There is no default long budget:
 
-- Press Ctrl-C once, or create `sessions/SESSION/STOP` from another terminal. The runner stops at the next decision, saves a final checkpoint, and retains pending evaluation labels. During an update it finishes that update before checking the stop signal. During evaluation it interrupts the child process and preserves partial evidence.
-- Do not use force quit if a normal stop is possible. Sudden power loss can lose the current segment, but earlier checkpoint stages remain available.
-- Resume in a **new session directory** with an explicit newly approved budget:
+```sh
+.venv/bin/python -m smb3_rl.session --session YYYY-MM-DD-smb3-session-02 \
+  --resume sessions/PRIOR/checkpoints/final.zip --active-minutes MINUTES \
+  --budget-note 'User selected MINUTES additional active training minutes after the pilot'
+```
 
-  ```sh
-  .venv/bin/python -m kart_rl.session --session YYYY-MM-DD-session-02 \
-    --resume sessions/PRIOR/checkpoints/final.zip --active-minutes MINUTES \
-    --budget-note 'User selected this additional budget'
-  ```
+To start a new fresh-policy experiment, omit `--resume`. Continue only with the same configuration, environment identity and source hash; a change requires a new documented experiment. The runner checks for committed source before starting. Do not edit runtime code while a session is running.
 
-- Model weights and optimizer state load from the checkpoint. The emulator resets and RNG state/partial rollout are not restored bit-for-bit. This is a documented continuation, not an exact replay. `parent_model_sha256` links the sessions. The original fresh untrained baseline remains archived.
-- Incomplete evaluations can be rerun into a **new** directory using `kart_rl.evaluate`; preserve the original attempt and document the replacement. Do not overwrite past evidence.
-- Rebuild a session report with `.venv/bin/python -m kart_rl.report sessions/SESSION`. Add a human/Codex visual analysis after examining saved clips and traces. No analysis runs inside gameplay.
+## Stop and save
 
-Use `--help` on each module for flags. When a gate fails, follow the named prerequisite; do not disable validation to produce results.
+Press Ctrl-C once, or create `sessions/SESSION/STOP`. The runner checks at the next decision, saves a final model atomically, and marks skipped evaluations pending. During a PPO update, it finishes the current update first. During evaluation it interrupts the child and retains partial evidence. Avoid force quit: the current segment can be lost, although previously saved checkpoints remain.
+
+Resume always uses a **new session directory** with an explicit additional budget. Weights and optimizer state load; the emulator resets and the random-number/partial-rollout state is not restored exactly. This is continuation, not bit-for-bit replay. The parent checkpoint SHA-256 links the sessions.
+
+## Evaluate and report
+
+```sh
+.venv/bin/python -m smb3_rl.evaluate --config sessions/SESSION/config.json \
+  --model sessions/SESSION/checkpoints/final.zip --output sessions/SESSION/evaluation-retry-01 --seconds 300
+MPLCONFIGDIR=.cache/matplotlib .venv/bin/python -m smb3_rl.report sessions/SESSION
+```
+
+Always use a new evaluation output directory. Keep the original failed/incomplete attempt and journal the retry. Add visual interpretation in that session's `ANALYSIS.md`; the report links it without overwriting it. No GPT calls are made automatically. Publication is a separate deliberate step after reviewing saved evidence.

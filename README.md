@@ -1,23 +1,20 @@
-# Super Mario Kart RL classroom lab
+# Super Mario Bros. 3 RL classroom lab
 
 **[Permanent classroom index](https://github.com/sbardacosta-code/super-mario-kart-rl/blob/main/docs/classroom/README.md)**
 
-An English-language, local reinforcement-learning project for studying how an agent learns, stalls, fails, and regresses. Initial task: **Mario, Mario Circuit 1, Time Trial**. First milestone: a valid lap. Next: reliable five-lap race completion.
+This repository now teaches **Super Mario Bros. 3, World 1-1**. At the user's request, it reuses the existing `super-mario-kart-rl` folder, GitHub repository, and classroom index URL. The separate Super Mario Bros. 1 project and task are not modified.
 
-**Status on September 16, 2026:** the native Apple Silicon software smoke test passes. The Super Mario Kart ROM is missing. Kart controls, saved start, memory mapping, reward, laps, and termination are **not validated**. No Kart training, gameplay samples, or trained checkpoints exist yet. Scripts fail closed until validation is recorded.
+The original Kart preparation is preserved in [archive/kart](archive/kart/README.md), the historical setup session, and Git tag `kart-pre-smb3-20260916`. No Kart training occurred. Current code lives in `smb3_rl/`; the archived Kart scripts are historical, not the active workflow.
 
-## Start here
+## Classroom materials
 
-- [Classroom index and archived sessions](docs/classroom/README.md)
-- [Setup and stop/save/resume commands](docs/SETUP.md)
-- [Exactly which ROM to supply](docs/ROM.md)
-- [Validation checklist and evidence requirements](docs/VALIDATION.md)
-- [Evaluation and recording protocol](docs/PROTOCOL.md)
+- [Session reports, charts and gameplay gallery](docs/classroom/README.md)
 - [Teacher guide and discussion questions](docs/TEACHER_GUIDE.md)
-- [Chronological experiment journal](docs/JOURNAL.md)
-- [Current compatibility report](sessions/2026-09-16-setup/REPORT.md)
-- [Architecture and limitations](docs/DESIGN.md)
-- [Publication and checkpoint Releases](docs/PUBLISHING.md)
+- [Setup, pilot, stop/save/resume](docs/SETUP.md)
+- [Evaluation and timing protocol](docs/PROTOCOL.md)
+- [Validation evidence](sessions/2026-09-16-smb3-validation/REPORT.md)
+- [Experiment journal](docs/JOURNAL.md)
+- [Publication and model downloads](docs/PUBLISHING.md)
 
 ## Local setup
 
@@ -25,9 +22,10 @@ An English-language, local reinforcement-learning project for studying how an ag
 python3.13 -m venv .venv
 .venv/bin/python -m pip install -r requirements-lock.txt
 .venv/bin/python -m pytest -q
-MPLCONFIGDIR=.cache/matplotlib .venv/bin/python -m kart_rl.doctor --output private/doctor-new.json
 ```
 
-The project was prepared in its own Git repository. The original [Mario teaching project](https://github.com/sbardacosta-code/mario-rl) was inspected read-only and preserved. No paid cloud compute, GPT calls, or remote inference are used in gameplay, training, evaluation, recording, or chart generation.
+The installed `gym-super-mario-bros==9.1.0` package includes the game data locally. There is no separate ROM-import step for this experiment. No ROM, emulator state, or bundled game package is uploaded to this repository or model Releases.
 
-This is an educational fan project, not affiliated with Nintendo. Game files and save states remain local; supply your own compatible game file. See [provenance](docs/REFERENCES.md) for third-party sources.
+The agent learns from screenshots with a fresh PPO CNN policy. Evaluation records all trials, including failures, incomplete attempts and regressions. The bounded pilot is followed by a user choice of the longer training budget; no three-hour run is assumed.
+
+Training, evaluation, recording, checkpointing and chart generation are self-contained local scripts. There are no GPT/API calls in the gameplay loop and no paid cloud computing.

@@ -1,0 +1,155 @@
+{
+  "at": "2026-09-16T18:35:01.826437+00:00",
+  "status": "passed",
+  "identity": {
+    "config_sha256": "03ec089a2bed347abfb7a107ca43d25642208a0972eba2746cefbf4f81b480c9",
+    "rom_sha256": "6ea0777ca520ba7ad7b0ea0f6452140d59aa0b1dffe5045cb1e8020dde10c267",
+    "installed_environment_sha256": "d38535d08b3ebc32c4b0a5b23d9491d454f95e8024af18244865405794ab0d18",
+    "adapter_sha256": "8effe7eed15feaace2d6ecb35737f2df7936e444d3215e2b0e00872a817b5d1c",
+    "versions": {
+      "gym-super-mario-bros": "9.1.0",
+      "nes-py": "9.0.1",
+      "gymnasium": "1.3.0",
+      "stable-baselines3": "2.9.0",
+      "torch": "2.14.0",
+      "numpy": "2.5.3",
+      "pillow": "12.3.0"
+    }
+  },
+  "checks": {
+    "gymnasium_api": "passed",
+    "ten_resets_and_120_frame_replays_identical": true,
+    "right_moves": true,
+    "run_faster_than_walk": true,
+    "jump_changes_vertical_position": true,
+    "false_clear_replay_is_death_not_success": true,
+    "timeout_exact_frames": true,
+    "repeated_progress_not_rewarded_twice": true,
+    "map_does_not_reward_progress": true,
+    "scripted_level_clear": true,
+    "pixel_stack": true
+  },
+  "reset_replay_hashes": [
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+    "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f"
+  ],
+  "controls": {
+    "coast": {
+      "max_x": 24,
+      "y_range": [
+        384,
+        384
+      ]
+    },
+    "walk right": {
+      "max_x": 103,
+      "y_range": [
+        384,
+        384
+      ]
+    },
+    "jump right": {
+      "max_x": 103,
+      "y_range": [
+        313,
+        384
+      ]
+    },
+    "run right": {
+      "max_x": 108,
+      "y_range": [
+        384,
+        384
+      ]
+    },
+    "run and jump right": {
+      "max_x": 108,
+      "y_range": [
+        313,
+        384
+      ]
+    }
+  },
+  "scripted_clear_outcome": {
+    "card_selection": 0,
+    "flag_get": true,
+    "flight_timer": 0,
+    "in_level": false,
+    "invulnerability_timer": 0,
+    "is_dying": false,
+    "is_game_over": false,
+    "life": 4,
+    "lives": 4,
+    "map_x": 64,
+    "map_y": 32,
+    "p_meter": 0,
+    "p_meter_full": false,
+    "p_meter_timer": 0,
+    "pipe_timer": 0,
+    "powerup_level": 0,
+    "score": 13350,
+    "stage": 1,
+    "star_timer": 0,
+    "status": "small",
+    "status_value": 0,
+    "time": 0,
+    "world": 1,
+    "x_page": 32,
+    "x_pos": 64,
+    "x_pos_max": 64,
+    "x_screen": 0,
+    "y_page": 0,
+    "y_pos": 32,
+    "y_screen": 0,
+    "clear": true,
+    "death": false,
+    "game": "smb3",
+    "game_family": "smb3",
+    "progress": 64,
+    "progress_max": 64,
+    "rom_mode": "vanilla",
+    "single_stage": true,
+    "task_id": "SuperMarioBros3-1-1-v0",
+    "target_stage": 1,
+    "target_world": 1,
+    "timeout": false,
+    "world_label": "1",
+    "reward_components": {
+      "progress": 0.0,
+      "time": 0.0,
+      "score": 0.0,
+      "powerup": 0.0,
+      "completion": 50.0,
+      "death": 0.0
+    },
+    "reward_total_unclipped": 50.0,
+    "reward_total_clipped": 15.0,
+    "frames": 2236,
+    "decisions": 559,
+    "frames_advanced": 4,
+    "max_x": 2844,
+    "progress_pixels": 2820,
+    "milestones_reached": 4,
+    "level_complete": true,
+    "telemetry_invalid": false,
+    "finish_seconds": 37.266666666666666,
+    "termination_reason": "clear",
+    "terminated": true,
+    "truncated": false,
+    "native_reward": 15.0
+  },
+  "post_terminal_map_image_delay_frames": 60,
+  "notes": [
+    "Nominal 60 emulated frames/s; no claim that wall time equals game time.",
+    "Scripted successful controller is validation evidence, not PPO training or an evaluated learned model.",
+    "Stage-specific correction requires exact World 1-1 map-panel coordinates before declaring success."
+  ]
+}

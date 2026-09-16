@@ -1,27 +1,23 @@
 # Chronological experiment journal
 
-## 2026-09-16 — Session 00: prepare without a ROM
+## 2026-09-16 — Kart preparation (historical)
 
-**Question:** Can the classroom infrastructure and native Mac stack be prepared while the game file is missing?
+The native Stable-Retro stack and classroom workflow were prepared, but the Super Mario Kart ROM was missing. No Kart learning occurred. The complete original journal, source, configuration and setup report are preserved [in the archive](../archive/kart/docs/JOURNAL.md).
 
-**Inspection:** Read the earlier local Mario project at revision `f9820ba672197e4a21d6e72285bf9da3abc02d78`, preserving it. Adapted archival, reporting, clips, and provenance ideas in new English-language code. GitHub inspection found no existing `sbardacosta-code/super-mario-kart-rl` repository. Prepared a separate nested folder with its own Git history, leaving the current Pac-Man project untouched.
+## 2026-09-16 — User-directed migration to SMB3
 
-**Machine:** Apple M4, 10 CPU cores, 16 GB memory, macOS 26.6.2. Installed a fresh arm64 Python 3.13.15 environment. Chose CPU/one thread for an initial reproducible profile. MPS was not available to the smoke-test process; no GPU workaround was assumed.
+The user chose Super Mario Bros. 3 and explicitly requested reuse of the Kart folder, repository and permanent classroom index. The Mario Bros. 1 repository and task are excluded from edits. The active package is now `smb3_rl`; the public URL keeps its original name so teacher bookmarks remain valid.
 
-**Compatibility investigation:** Current Stable-Retro supplied a native Mac arm64 wheel. Older reference projects use different RL libraries and older installation paths. No Docker was necessary for the successful included-game test. Both Kart references list the same SHA-1, but their RAM addresses and save states remain unverified candidates. Only text metadata was fetched, despite ROM entries being present upstream.
+Installed gym-super-mario-bros 9.1.0 and nes-py 9.0.1 in this project's own virtual environment. Stable-Retro's pyglet constraint conflicted with nes-py; removed Stable-Retro from the active environment and preserved its dependency lock in the archive. NES package installation provides the local game data; no ROM is committed or uploaded.
 
-**Setup failures and fixes:** Initial shell network access was sandbox-restricted; authorized dependency/GitHub operations used the network-enabled tool path. The default human renderer could not find a display and raised `IndexError`; explicitly selecting RGB arrays fixed the smoke test. Inspection of installed Stable-Retro showed an empty info dictionary at reset, so the adapter reads current RAM telemetry through the data interface. The deprecated `retro` import was replaced by `stable_retro`.
+Started with World 1-1, a fresh screen-based PPO policy, five rightward actions, four-frame repeat, and CPU/one thread. Task outcomes changed from racing laps to horizontal progress and level completion. The initial baseline is now hold right+B, without jumping. A 12-minute pilot target retains the original user-authorized 10–15-minute scope; further training needs a new budget choice.
 
-**Observed results:** The included Airstriker environment passed the Gymnasium check and 600 measured frame steps. A 128-decision CNN PPO smoke run changed finite policy weights. See [raw compatibility measurements](../sessions/2026-09-16-setup/compatibility.json). This is not SNES/Mario Kart validation or the requested 10–15-minute pilot.
+## 2026-09-16 — False-clear failure found before training
 
-**Parameter choices:** Four initial driving actions, four repeated frames, four 84×84 grayscale observations, a small PPO rollout, one thread, conservative ordered-progress reward. These simplify inspection and reduce early configuration complexity; their effectiveness is untested. Repeated boundary crossings must not renew reward, and a lap needs both circuit traversal and game evidence. Synthetic tests cover these rules and exact terminal-frame counts.
+A scripted validation sequence produced `clear=true` at frame 369 near x=352, while screenshots showed death/fade-out by the first pipe. The installed environment tested timer zero and nonzero map fields before a life decrement appeared. The adapter now also requires the actual World 1-1 map-panel coordinates for completion. The same sequence is then classified as death at frame 370. This is a concrete example of a measurement bug that could reward failure.
 
-**Recording decisions:** Archive initial, approximately 15-minute, and final checkpoints; fixed action-seed trials; start/end screenshots and GIF excerpts; full decision traces; independent outcome metrics; separate collection/update/evaluation/recording counters. Store models in verified Releases later. Never silently replace a failed stage. The runner creates measurement summaries and explicitly leaves visual interpretation pending.
+Periodic button probes and a bounded scripted action search were used to find a genuine goal traversal for validation. These are environment checks, not PPO learning; their actions are not demonstrations supplied to PPO. See the validation report for the final successful replay and its limits.
 
-**Current lesson:** A working ML package installation is only one layer of evidence. A reward implementation can pass synthetic tests while the game's memory mapping is wrong. The missing ROM blocks all claims about Kart behavior.
+## Pilot results
 
-**Next actions:** Supply checksum-matched ROM; create and verify the exact start; validate controls/resets/observations/checkpoints/laps/termination and timing; run the bounded pilot; publish measured evidence; ask the user to choose a longer budget. No three-hour run is authorized or scheduled.
-
-## Future entries
-
-Append a dated section for each setup change, pilot, training session, evaluation correction, parameter change, failure, or regression. Include links to immutable session evidence, the decision made, what was observed, hypotheses clearly labeled, and what remains unknown. Rebuilding a chart does not rewrite historical conclusions.
+The pilot session's manifest, report and visual analysis will be linked from the permanent index. Record actual training/update/evaluation time and outcome changes, including regressions. Do not replace requested minutes with assumed active time, or interpret successful validation-controller play as learned-policy skill.
