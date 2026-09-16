@@ -107,7 +107,11 @@ def run(args):
     def checkpoint(label):
         tick = time.perf_counter()
         path = run / 'checkpoints' / (label + '.zip')
-        model.save(path)
+        if path.exists():
+            raise RuntimeError('Refusing to overwrite a checkpoint: '+str(path))
+        temporary = path.with_name(path.stem+'.tmp.zip')
+        model.save(temporary)
+        temporary.replace(path)
         manifest['checkpoint_seconds'] += time.perf_counter()-tick
         stage = {'id': label, 'model_sha256': digest(path), 'model_path': str(path.relative_to(ROOT)),
                  'training_seconds': manifest['training_seconds'], 'status': 'evaluation_pending',

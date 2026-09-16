@@ -18,6 +18,8 @@ The classroom scaffolding and native Mac dependency check are prepared. The orig
 | Model parameters | Changed and finite after the smoke update |
 | RSS after the check | 348.5 MiB; not a peak-memory measurement |
 | MPS available to this process | No; CPU was used |
+| Local automated tests | 11 passed: reward exploits, wrapper/frame accounting, PPO save/load, traces/clips, and incomplete evaluation |
+| Dependency consistency | `pip check` passed |
 
 ![Measured smoke-test durations; different workloads, not a Kart performance comparison](smoke-durations.png)
 

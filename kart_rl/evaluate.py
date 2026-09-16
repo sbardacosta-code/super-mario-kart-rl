@@ -41,12 +41,16 @@ def evaluate(config, output, model_path=None, seeds=None, max_seconds=120, recor
             completed = False
             import json
             trace = output / f'trial-{seed}.jsonl'
+            result['partial_episode'] = {'seed': seed, 'trace': trace.name, 'complete_trial': False,
+                                         **info, 'training_reward_sum': 0.0}
             with trace.open('x') as stream:
                 stream.write(json.dumps({'event': 'reset', 'seed': seed, 'info': info}, default=lambda x:x.item()) + '\n')
                 while time.perf_counter() < deadline:
                     action = int(model.predict(obs, deterministic=False)[0]) if model else 1
                     obs, reward, term, trunc, info = env.step(action)
                     total_reward += float(reward)
+                    result['partial_episode'].update(**info, training_reward_sum=total_reward,
+                                                     evaluation_seconds=time.perf_counter()-episode_start)
                     stream.write(json.dumps({'action': action, 'action_name': config['action_names'][action],
                                              'reward': float(reward), **info}, default=lambda x:x.item()) + '\n')
                     if record:
@@ -75,6 +79,7 @@ def evaluate(config, output, model_path=None, seeds=None, max_seconds=120, recor
                 result['recording_seconds'] += time.perf_counter() - tick
             if completed:
                 result['episodes'].append(episode)
+                result['partial_episode'] = None
             else:
                 result['partial_episode'] = episode
             write_json(output / 'evaluation.json', result)
