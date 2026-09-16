@@ -1,0 +1,21 @@
+{
+  "tag": "models-2026-09-16-smb3-pilot",
+  "verified_downloads": true,
+  "models": [
+    {
+      "stage": "00-untrained",
+      "sha256": "e9aeb87e3dcc21c80362ebfad73600a11a8b4ce83cca7621b6d545e90f655d0b",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-pilot/00-untrained.zip"
+    },
+    {
+      "stage": "01-stage",
+      "sha256": "5faa99a153ae7a3d1e26bc02a50e84f1e6e66f2a8074847a282f1cabc0a27722",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-pilot/01-stage.zip"
+    },
+    {
+      "stage": "final",
+      "sha256": "2e8a5244bad04fcc92f378637b62bb9a7484186b174de05ee82bd4ccfe87f878",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-pilot/final.zip"
+    }
+  ]
+}

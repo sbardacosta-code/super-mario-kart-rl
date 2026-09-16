@@ -2,7 +2,7 @@
 
 This project now teaches **Super Mario Bros. 3, World 1-1**. The original repository name and this permanent URL are retained at the user’s request. The separate Mario Bros. 1 project is untouched.
 
-[Teacher guide](../TEACHER_GUIDE.md) · [Setup and resume](../SETUP.md) · [Journal](../JOURNAL.md) · [Protocol](../PROTOCOL.md)
+[Teacher guide](../TEACHER_GUIDE.md) · [Setup and resume](../SETUP.md) · [Journal](../JOURNAL.md) · [Protocol](../PROTOCOL.md) · [Model downloads](https://github.com/sbardacosta-code/super-mario-kart-rl/releases)
 
 ## Session archive
 

@@ -62,3 +62,4 @@ The training trace contains 555 completed episodes, no clears, and a maximum obs
 
 **Budget decision:** no additional training was launched after this pilot. The setup works and progress increased on average, but level completion has not been achieved by the learned policy.
 
+[Download the verified model checkpoints](MODELS.md).

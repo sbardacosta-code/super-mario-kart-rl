@@ -91,7 +91,7 @@ def build(run):
     lines += ['','## Interpretation','']
     if (run/'ANALYSIS.md').exists():lines += ['[Read the visual stage-by-stage analysis](ANALYSIS.md).']
     else:lines += ['Visual review pending. Measurements alone do not establish why Mario made a mistake. No causal story is invented.']
-    if (run/'release.json').exists():lines += ['','[Verified downloadable model checkpoints](release.json).']
+    if (run/'release.json').exists():lines += ['','[Verified downloadable model checkpoints](MODELS.md) · [Download verification manifest](release.json).']
     target.write_text('\n'.join(lines)+'\n')
     import matplotlib
     matplotlib.use('Agg')
@@ -120,7 +120,7 @@ def build(run):
 def update_index():
     text=['# Super Mario Bros. 3 — classroom index','',
           'This project now teaches **Super Mario Bros. 3, World 1-1**. The original repository name and this permanent URL are retained at the user’s request. The separate Mario Bros. 1 project is untouched.','',
-          '[Teacher guide](../TEACHER_GUIDE.md) · [Setup and resume](../SETUP.md) · [Journal](../JOURNAL.md) · [Protocol](../PROTOCOL.md)','',
+          '[Teacher guide](../TEACHER_GUIDE.md) · [Setup and resume](../SETUP.md) · [Journal](../JOURNAL.md) · [Protocol](../PROTOCOL.md) · [Model downloads](https://github.com/sbardacosta-code/super-mario-kart-rl/releases)','',
           '## Session archive','','| Session | Status | Evidence |','|---|---|---|',
           '| Kart preparation (historical) | Archived; no Kart training | [Original archive](../../archive/kart/README.md) |',
           '| SMB3 validation | See validation report | [Controls, resets, and false-clear correction](../../sessions/2026-09-16-smb3-validation/REPORT.md) |']

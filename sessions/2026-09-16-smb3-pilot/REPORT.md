@@ -162,3 +162,5 @@ Matched-trial wall-time difference: +0.220 s. This single pair includes cache an
 ## Interpretation
 
 [Read the visual stage-by-stage analysis](ANALYSIS.md).
+
+[Verified downloadable model checkpoints](MODELS.md) · [Download verification manifest](release.json).
