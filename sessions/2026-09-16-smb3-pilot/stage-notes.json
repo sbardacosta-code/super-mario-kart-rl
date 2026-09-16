@@ -1,0 +1,23 @@
+{
+  "00-untrained": {
+    "changed": "No training yet: this is the fresh PPO policy. It samples button combinations from screen observations.",
+    "observed": "Seed 101 gets past the opening area, reaches the first plant pipe and dies. Some untrained action sequences travel farther; that alone does not demonstrate a learned strategy. See the [reviewed analysis](ANALYSIS.md#initial-untrained-policy).",
+    "fails": "All five trials die; none completes the level. Mean progress is 573.6 pixels.",
+    "uncertain": "The clip does not establish whether the network recognizes the plant. Random action sequences can make progress.",
+    "model_sha256": "e9aeb87e3dcc21c80362ebfad73600a11a8b4ce83cca7621b6d545e90f655d0b"
+  },
+  "01-stage": {
+    "changed": "9.46 minutes of active training: 78,581 decisions and 4,726 optimizer steps. PPO adjusted its weights using screen observations and the progress/death reward; no scripted demonstrations were supplied.",
+    "observed": "Seed 101 now passes the first pipe that ended its initial trial and reaches a later area with walking enemies. Mean progress rises to 754.4 pixels. See the [reviewed stage analysis](ANALYSIS.md#trained-stage-01-stage).",
+    "fails": "Still 0/5 clears. Seeds 202 and 303 regress. [Seed 202](01-stage/trial-202-ending.gif) still dies near the first plant pipe; [seed 404](01-stage/trial-404-ending.gif) reaches raised platforms and flying enemies, then dies.",
+    "uncertain": "Better jump timing is a hypothesis, not a demonstrated cause. More run-and-jump actions appear in these traces, but routes and episode lengths also differ.",
+    "model_sha256": "5faa99a153ae7a3d1e26bc02a50e84f1e6e66f2a8074847a282f1cabc0a27722"
+  },
+  "final": {
+    "changed": "No additional learning after 01-stage. The final model has identical policy weights, and the repeated five-seed results match. It is an archived final save, not another improvement.",
+    "observed": "The same behavior replays in the comparable clips. The pilot shows increased average progress, not learned reliable completion.",
+    "fails": "Ten additional action seeds yield 0/10 clears, mean progress 667.9 pixels. [Seed 6707](final-additional-trials/trial-6707-ending.gif) still dies near the first walking enemy. See the [final analysis](ANALYSIS.md#final-checkpoint).",
+    "uncertain": "These additional trials use the same level. They do not test generalization; neither extra training nor a different action set has yet been tested.",
+    "model_sha256": "2e8a5244bad04fcc92f378637b62bb9a7484186b174de05ee82bd4ccfe87f878"
+  }
+}

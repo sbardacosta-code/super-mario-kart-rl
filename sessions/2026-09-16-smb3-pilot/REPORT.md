@@ -2,7 +2,7 @@
 
 Session status: **completed**. This is a local CPU experiment.
 
-[Manifest](manifest.json) · [Configuration](config.json) · [Dependencies](requirements.txt)
+[Classroom learning timeline and stage explanations](LESSON.md) · [Manifest](manifest.json) · [Configuration](config.json) · [Dependencies](requirements.txt)
 
 ## Time and work measured
 
@@ -48,11 +48,11 @@ Evaluation **complete**: 5/5 finished trials. [Full measurements](00-untrained/e
 | 404 | 776 | death | [Trace](00-untrained/trial-404.jsonl) · [beginning](00-untrained/trial-404-beginning.gif) · [ending](00-untrained/trial-404-ending.gif) |
 | 505 | 553 | death | [Trace](00-untrained/trial-505.jsonl) · [beginning](00-untrained/trial-505-beginning.gif) · [ending](00-untrained/trial-505-ending.gif) |
 
-Comparable example: seed 101 (fixed first seed, not selected for best performance).
+| Beginning · seed 101 · decisions 1–103 | Ending · seed 101 · decisions 29–103 |
+|---|---|
+| ![Beginning, seed 101](00-untrained/trial-101-beginning.gif) | ![Ending, seed 101](00-untrained/trial-101-ending.gif) |
 
-![Seed 101 — beginning](00-untrained/trial-101-beginning.gif)
-
-![Seed 101 — ending](00-untrained/trial-101-ending.gif)
+These excerpts overlap; they are two views of the same trial.
 
 
 ## 01-stage
@@ -73,11 +73,11 @@ Mean progress changed by +180.8 pixels; completion count changed by +0. Improvem
 | 404 | 1373 | death | [Trace](01-stage/trial-404.jsonl) · [beginning](01-stage/trial-404-beginning.gif) · [ending](01-stage/trial-404-ending.gif) |
 | 505 | 557 | death | [Trace](01-stage/trial-505.jsonl) · [beginning](01-stage/trial-505-beginning.gif) · [ending](01-stage/trial-505-ending.gif) |
 
-Comparable example: seed 101 (fixed first seed, not selected for best performance).
+| Beginning · seed 101 · decisions 1–150 | Ending · seed 101 · decisions 164–238 |
+|---|---|
+| ![Beginning, seed 101](01-stage/trial-101-beginning.gif) | ![Ending, seed 101](01-stage/trial-101-ending.gif) |
 
-![Seed 101 — beginning](01-stage/trial-101-beginning.gif)
-
-![Seed 101 — ending](01-stage/trial-101-ending.gif)
+The middle of this trial is omitted from these excerpts; the full action trace is retained.
 
 
 ## final
@@ -98,11 +98,11 @@ Mean progress changed by +0.0 pixels; completion count changed by +0. Improvemen
 | 404 | 1373 | death | [Trace](final/trial-404.jsonl) · [beginning](final/trial-404-beginning.gif) · [ending](final/trial-404-ending.gif) |
 | 505 | 557 | death | [Trace](final/trial-505.jsonl) · [beginning](final/trial-505-beginning.gif) · [ending](final/trial-505-ending.gif) |
 
-Comparable example: seed 101 (fixed first seed, not selected for best performance).
+| Beginning · seed 101 · decisions 1–150 | Ending · seed 101 · decisions 164–238 |
+|---|---|
+| ![Beginning, seed 101](final/trial-101-beginning.gif) | ![Ending, seed 101](final/trial-101-ending.gif) |
 
-![Seed 101 — beginning](final/trial-101-beginning.gif)
-
-![Seed 101 — ending](final/trial-101-ending.gif)
+The middle of this trial is omitted from these excerpts; the full action trace is retained.
 
 
 ## Run right baseline
@@ -119,11 +119,11 @@ Status: complete. [Measurements](hold-run-right/evaluation.json).
 | 404 | 88 | death | [Trace](hold-run-right/trial-404.jsonl) · [beginning](hold-run-right/trial-404-beginning.gif) · [ending](hold-run-right/trial-404-ending.gif) |
 | 505 | 88 | death | [Trace](hold-run-right/trial-505.jsonl) · [beginning](hold-run-right/trial-505-beginning.gif) · [ending](hold-run-right/trial-505-ending.gif) |
 
-Comparable example: seed 101 (fixed first seed, not selected for best performance).
+| Beginning · seed 101 · decisions 1–65 | Ending · seed 101 · decisions 1–65 |
+|---|---|
+| ![Beginning, seed 101](hold-run-right/trial-101-beginning.gif) | ![Ending, seed 101](hold-run-right/trial-101-ending.gif) |
 
-![Seed 101 — beginning](hold-run-right/trial-101-beginning.gif)
-
-![Seed 101 — ending](hold-run-right/trial-101-ending.gif)
+These excerpts overlap; they are two views of the same trial.
 
 
 ## Final additional trials
@@ -145,11 +145,11 @@ Status: complete. [Measurements](final-additional-trials/evaluation.json).
 | 6909 | 776 | death | [Trace](final-additional-trials/trial-6909.jsonl) · [beginning](final-additional-trials/trial-6909-beginning.gif) · [ending](final-additional-trials/trial-6909-ending.gif) |
 | 7010 | 81 | death | [Trace](final-additional-trials/trial-7010.jsonl) · [beginning](final-additional-trials/trial-7010-beginning.gif) · [ending](final-additional-trials/trial-7010-ending.gif) |
 
-Comparable example: seed 6101 (fixed first seed, not selected for best performance).
+| Beginning · seed 6101 · decisions 1–150 | Ending · seed 6101 · decisions 253–327 |
+|---|---|
+| ![Beginning, seed 6101](final-additional-trials/trial-6101-beginning.gif) | ![Ending, seed 6101](final-additional-trials/trial-6101-ending.gif) |
 
-![Seed 6101 — beginning](final-additional-trials/trial-6101-beginning.gif)
-
-![Seed 6101 — ending](final-additional-trials/trial-6101-ending.gif)
+The middle of this trial is omitted from these excerpts; the full action trace is retained.
 
 
 ## Recording overhead

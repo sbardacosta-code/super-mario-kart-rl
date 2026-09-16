@@ -21,11 +21,8 @@ def gallery(e,path,target):
         for clip in ep.get('media',[]):
             evidence.append(f"[{Path(clip).stem.split('-')[-1]}]({link(path.parent/clip,target)})")
         lines.append(f"| {ep['seed']} | {ep['progress_pixels']} | {ep.get('termination_reason') or 'partial'} | {' · '.join(evidence)} |")
-    if e['episodes']:
-        ep=e['episodes'][0]
-        lines+=['',f"Comparable example: seed {ep['seed']} (fixed first seed, not selected for best performance).",'']
-        for clip in ep.get('media',[]):
-            lines += [f"![Seed {ep['seed']} — {Path(clip).stem.split('-')[-1]}]({link(path.parent/clip,target)})",'']
+    from .lesson import clip_pair
+    lines += ['', *clip_pair(e,path,target,e['seeds'][0])]
     return lines
 
 def build(run):
@@ -34,7 +31,7 @@ def build(run):
     if (run/'memory-partial.json').exists():
         memory_text='Full-run peak unavailable: original monitor failed; see partial-coverage measurement below'
     lines=[f"# SMB3 World 1-1 — {m['session_id']}",'',f"Session status: **{m['status']}**. This is a local CPU experiment.",'',
-           '[Manifest](manifest.json) · [Configuration](config.json) · [Dependencies](requirements.txt)','',
+           '[Classroom learning timeline and stage explanations](LESSON.md) · [Manifest](manifest.json) · [Configuration](config.json) · [Dependencies](requirements.txt)','',
            '## Time and work measured','',
            '| Measurement | Value |','|---|---:|',
            f"| Session wall time before chart generation | {m.get('wall_seconds',0):.2f} s |",
@@ -64,8 +61,8 @@ def build(run):
             lines+=['**Evaluation pending.** Missing results are not zeros.',''];continue
         e=read_json(path)
         lines += [f"Evaluation **{e['status']}**: {len(e['episodes'])}/{len(e['seeds'])} finished trials. [Full measurements]({link(path,target)}).",'']
-        comparable=e['status']=='complete' and e['protocol']==m['config'] and e['model_sha256']==stage['model_sha256'] and e['seeds']==m['config']['evaluation_seeds']
-        if comparable:
+        from .lesson import comparable
+        if comparable(e,stage,m['config']):
             s=summary(e);points.append((stage['training_seconds']/60,s,stage['id']))
             lines += [f"**Observed measurements:** {s['clears']}/{s['n']} clears; {s['deaths']} deaths; mean progress {s['mean']:.1f} pixels (range {s['min']}–{s['max']}); mean shaped reward {s['reward']:.3f}.",'']
             if previous:
@@ -115,6 +112,8 @@ def build(run):
         ax.set(xlabel='Additional active training (minutes)',ylabel=label);ax.grid(alpha=.25)
     fig.suptitle('SMB3 World 1-1 — all stages, including regressions')
     fig.savefig(run/'progress.png',dpi=150);plt.close(fig)
+    from .lesson import build_lesson
+    build_lesson(run)
     update_index()
 
 def update_index():
@@ -125,7 +124,7 @@ def update_index():
           '| Kart preparation (historical) | Archived; no Kart training | [Original archive](../../archive/kart/README.md) |',
           '| SMB3 validation | See validation report | [Controls, resets, and false-clear correction](../../sessions/2026-09-16-smb3-validation/REPORT.md) |']
     for p in sorted((ROOT/'sessions').glob('*/manifest.json')):
-        m=read_json(p);text.append(f"| {m['session_id']} | {m['status']} | [Report, chart, and gameplay](../../sessions/{m['session_id']}/REPORT.md) |")
+        m=read_json(p);text.append(f"| {m['session_id']} | {m['status']} | [Learning timeline and GIF comparisons](../../sessions/{m['session_id']}/LESSON.md) · [Full report](../../sessions/{m['session_id']}/REPORT.md) |")
     text += ['','## Teacher access','','Public reports, charts, GIFs and model Releases need only a browser and internet access; no GitHub account is required. '
              'Local replay/training uses the pinned Python packages. The installed gym-super-mario-bros package supplies the game data locally; no game ROM is uploaded to this repository or its Releases. '
              'No paid cloud computing or GPT/API calls are used in the gameplay loop.','',

@@ -33,3 +33,9 @@ Raw emulator stepping measured about 1,401 frames/s; end-to-end active training 
 The original memory thread failed on a macOS PermissionError while enumerating children. Training was unaffected, but its peak field is unavailable, not zero. An independent monitor sampled the final 371.8 seconds and observed 495.3 MiB combined parent/child RSS. Early samples cannot be recovered. After the run, the sampler was fixed to retain parent RSS when children are inaccessible, and a regression test was added. Source-change consent for documented runner fixes was added to resume; environment/configuration checks remain strict.
 
 The complete run used source revision `ed371874407e8d96d95e973cc3f26847300265b4`. Later reporting/memory robustness edits did not change its saved models or gameplay results. No longer training budget has been assumed, launched or scheduled.
+
+## 2026-09-16 — Classroom report adapted from the SMB1 teaching format
+
+Read the separate Mario Bros. 1 reporting code and classroom report without modifying that project. Added a teaching-first SMB3 timeline, median/range alongside mean progress, paired seed regression tables, side-by-side beginning/end GIFs with exact decision ranges, and checkpoint-specific observed behavior, remaining failures and hypotheses. Reviewed notes are preserved separately and bound to model hashes; new or unmatched stages explicitly await visual review. All original measurements, models and clips are unchanged.
+
+The existing runner already checkpoints approximately every 900 seconds of additional active training. The short pilot is labeled with its actual 9.46 minutes; no fictional 15-minute interval was inserted and no further training was launched.

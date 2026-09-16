@@ -24,3 +24,11 @@ Open the [permanent classroom index](classroom/README.md). Reports and GIFs need
 - What further trials would support a claim of reliable completion or generalization?
 
 For every stage, record what changed, measured improvement/regression, visible remaining failures, the location/frame range, and unresolved hypotheses. Link each statement to a clip or metric. Read `ANALYSIS.md` alongside the generated report. The original and final policies may both fail; that is useful classroom evidence rather than a reason to hide the experiment.
+
+## The 15-minute learning story
+
+Use each session’s **Learning timeline and GIF comparisons** page for projection. It places actual active minutes, cumulative decisions, mean/median/range of progress and clears in one table, then shows the same seed’s beginning and ending side by side. Captioned decision ranges expose overlapping excerpts. Every trial remains linked, including worse results.
+
+At each approximately 15-minute checkpoint, first describe the visible behavior, then check all evaluation trials, and finally propose an explanation to test. Reports generate automatically without API calls. Visual interpretation is a separate review of saved milestones: explanations remain marked pending until reviewed, and `stage-notes.json` binds each explanation to its model hash. Regenerating a report preserves those notes.
+
+The first SMB3 pilot contains only 9.46 minutes of active training. It is not relabeled as a 15-minute stage. Its final save repeats the trained policy; this is a useful distinction between saving and learning. A longer run still requires the user’s training-budget choice.
