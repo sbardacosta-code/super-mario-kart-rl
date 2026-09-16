@@ -1,0 +1,36 @@
+{
+  "info": {
+    "laps": {
+      "address": 8261825,
+      "type": "|u1"
+    },
+    "speed": {
+      "address": 8261866,
+      "type": "<s2"
+    },
+    "surface": {
+      "address": 8261806,
+      "type": "|u1"
+    },
+    "collision": {
+      "address": 8261714,
+      "type": "|u1"
+    },
+    "backward": {
+      "address": 267,
+      "type": "|u1"
+    },
+    "checkpoint": {
+      "address": 8261824,
+      "type": "|u1"
+    },
+    "num_checkpoints": {
+      "address": 8257864,
+      "type": "|u1"
+    },
+    "current_frame": {
+      "address": 8257592,
+      "type": "<u2"
+    }
+  }
+}

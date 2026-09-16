@@ -1,0 +1,20 @@
+{
+  "protocol": "mc1-v1",
+  "game": "MarioKart-Snes-v0",
+  "integration_dir": "private/integrations",
+  "state": "MarioCircuit1-Mario-TimeTrial",
+  "rom_sha1": "47e103d8398cf5b7cbb42b95df3a3c270691163b",
+  "checkpoint_count": null,
+  "checkpoint_offset": 0,
+  "lap_start": 128,
+  "race_laps": 5,
+  "fps": 60,
+  "action_repeat": 4,
+  "episode_frames": 18000,
+  "actions": [[], ["B"], ["B", "LEFT"], ["B", "RIGHT"]],
+  "action_names": ["coast", "accelerate", "accelerate left", "accelerate right"],
+  "seed": 123,
+  "evaluation_seeds": [101, 202, 303, 404, 505],
+  "final_seeds": [6101, 6202, 6303, 6404, 6505, 6606, 6707, 6808, 6909, 7010],
+  "ppo": {"n_steps": 512, "batch_size": 64, "n_epochs": 4, "learning_rate": 0.00025, "gamma": 0.99, "gae_lambda": 0.95, "clip_range": 0.2, "ent_coef": 0.01, "target_kl": 0.02}
+}
