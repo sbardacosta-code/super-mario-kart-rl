@@ -4,6 +4,8 @@
 
 The classroom scaffolding and native Mac dependency check are prepared. The original Mario project was preserved. [Raw compatibility measurements](compatibility.json) are archived separately from any future gameplay session.
 
+[Publication verification](publication.json) records matching remote file hashes and anonymous HTTP 200 responses for the public index, report, and chart at the stated source revision.
+
 ## What was measured
 
 | Check | Observed result |

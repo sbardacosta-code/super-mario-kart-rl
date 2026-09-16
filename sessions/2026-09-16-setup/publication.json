@@ -1,0 +1,25 @@
+{
+  "verified_at": "2026-09-16T17:20:06.889659+00:00",
+  "verified_source_commit": "11c56d507a8f95a96098707bf2e3a9bb25f26fb7",
+  "remote_file_hashes_match": true,
+  "verified_files": 37,
+  "local_markdown_links": "passed",
+  "public_links": [
+    {
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/blob/main/docs/classroom/README.md",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/blob/main/sessions/2026-09-16-setup/REPORT.md",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sbardacosta-code/super-mario-kart-rl/main/sessions/2026-09-16-setup/smoke-durations.png",
+      "http_status": 200,
+      "authentication": "none"
+    }
+  ],
+  "model_releases": "not applicable: no Kart checkpoints yet"
+}
