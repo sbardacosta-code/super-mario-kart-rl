@@ -10,6 +10,7 @@ This project now teaches **Super Mario Bros. 3, World 1-1**. The original reposi
 |---|---|---|
 | Kart preparation (historical) | Archived; no Kart training | [Original archive](../../archive/kart/README.md) |
 | SMB3 validation | See validation report | [Controls, resets, and false-clear correction](../../sessions/2026-09-16-smb3-validation/REPORT.md) |
+| 2026-09-16-smb3-pilot | completed | [Report, chart, and gameplay](../../sessions/2026-09-16-smb3-pilot/REPORT.md) |
 
 ## Teacher access
 

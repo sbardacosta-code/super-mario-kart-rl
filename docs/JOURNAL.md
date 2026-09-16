@@ -21,3 +21,15 @@ Periodic button probes and a bounded scripted action search were used to find a 
 ## Pilot results
 
 The pilot session's manifest, report and visual analysis will be linked from the permanent index. Record actual training/update/evaluation time and outcome changes, including regressions. Do not replace requested minutes with assumed active time, or interpret successful validation-controller play as learned-policy skill.
+
+## 2026-09-16 — Bounded SMB3 pilot completed
+
+The pilot ran for 622.09 seconds overall (10.37 minutes), including 567.54 seconds of active training. It collected 313,478 action frames / 78,581 decisions and made 153 PPO train calls / 4,726 optimizer steps. All planned baseline, checkpoint and ten additional-seed evaluations completed. [Session report](../sessions/2026-09-16-smb3-pilot/REPORT.md) · [Visual analysis](../sessions/2026-09-16-smb3-pilot/ANALYSIS.md).
+
+Fixed-seed mean progress rose from 573.6 to 754.4 pixels, but completion remained 0/5. Two paired trials regressed. The final additional action seeds produced 0/10 clears; this is not a reliable level solver. The validation controller's success is not counted as PPO success. The stage and final policy weights are identical because no learning occurred between those saves.
+
+Raw emulator stepping measured about 1,401 frames/s; end-to-end active training about 552 frames/s; learning updates took 222.26 seconds. The matched one-trial recording test added about 0.220 seconds of wall time, with 0.431 seconds attributed internally to image handling/encoding; cache/scheduling effects mean these values need not equal. Full evaluation subprocess time was 52.68 seconds.
+
+The original memory thread failed on a macOS PermissionError while enumerating children. Training was unaffected, but its peak field is unavailable, not zero. An independent monitor sampled the final 371.8 seconds and observed 495.3 MiB combined parent/child RSS. Early samples cannot be recovered. After the run, the sampler was fixed to retain parent RSS when children are inaccessible, and a regression test was added. Source-change consent for documented runner fixes was added to resume; environment/configuration checks remain strict.
+
+The complete run used source revision `ed371874407e8d96d95e973cc3f26847300265b4`. Later reporting/memory robustness edits did not change its saved models or gameplay results. No longer training budget has been assumed, launched or scheduled.

@@ -34,7 +34,7 @@ After the pilot, the user chooses the longer active-training budget. There is no
   --budget-note 'User selected MINUTES additional active training minutes after the pilot'
 ```
 
-To start a new fresh-policy experiment, omit `--resume`. Continue only with the same configuration, environment identity and source hash; a change requires a new documented experiment. The runner checks for committed source before starting. Do not edit runtime code while a session is running.
+To start a new fresh-policy experiment, omit `--resume`. Continue only with the same configuration and environment identity. Source changes are rejected by default; after reviewing and documenting a runner-only fix, use `--allow-source-change` to record that explicit exception in the new session. The memory-monitor fix after the first pilot requires this flag for continuation; it does not change the policy, reward, observations or game adapter. The runner checks for committed source before starting. Do not edit runtime code while a session is running.
 
 ## Stop and save
 
@@ -51,3 +51,5 @@ MPLCONFIGDIR=.cache/matplotlib .venv/bin/python -m smb3_rl.report sessions/SESSI
 ```
 
 Always use a new evaluation output directory. Keep the original failed/incomplete attempt and journal the retry. Add visual interpretation in that session's `ANALYSIS.md`; the report links it without overwriting it. No GPT calls are made automatically. Publication is a separate deliberate step after reviewing saved evidence.
+
+To plot exploratory training episodes separately from evaluation: `MPLCONFIGDIR=.cache/matplotlib .venv/bin/python scripts/training_history.py sessions/SESSION`.

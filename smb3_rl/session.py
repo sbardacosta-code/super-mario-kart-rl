@@ -15,6 +15,7 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import BaseCallback
 from .common import ROOT, read_json, write_json, now, digest, revision, source_hashes, require_validated
 from .env import MarioEnv
+from .memory import sample_rss
 
 class TimedPPO(PPO):
     def collect_rollouts(self, *args, **kwargs):
@@ -66,8 +67,10 @@ def run(args):
     if args.resume:
         parent_model = Path(args.resume).resolve()
         parent_manifest = read_json(parent_model.parent.parent / 'manifest.json')
-        if parent_manifest['config'] != config or parent_manifest['source_hashes'] != source_hashes():
-            raise ValueError('Resume requires the same source and configuration; document a new experiment for changes.')
+        if parent_manifest['config'] != config:
+            raise ValueError('Resume requires the same configuration.')
+        if parent_manifest['source_hashes'] != source_hashes() and not args.allow_source_change:
+            raise ValueError('Source changed. Review and document the changes, then explicitly use --allow-source-change with a new budget note.')
         if parent_manifest['validation']['identity'] != validation['identity']:
             raise ValueError('Resume environment identity differs from the parent session.')
         if digest(parent_model) not in [s['model_sha256'] for s in parent_manifest['stages']]:
@@ -94,7 +97,11 @@ def run(args):
                 'stages': [], 'training_seconds': 0.0, 'evaluation_seconds': 0.0,
                 'rollout_seconds': 0.0, 'learning_seconds': 0.0, 'optimizer_steps': 0,
                 'learning_update_calls': 0, 'training_game_frames': 0, 'training_agent_decisions': 0,
-                'checkpoint_seconds': 0.0, 'peak_sampled_rss_bytes': 0}
+                'checkpoint_seconds': 0.0, 'peak_sampled_rss_bytes': 0,
+                'memory_sampling': {'samples':0,'scope':'parent_and_children','errors':[]},
+                'source_change_accepted':bool(args.allow_source_change)}
+    if args.resume:
+        manifest['parent_source_hashes']=parent_manifest['source_hashes']
     write_json(run / 'config.json', config)
     write_json(run / 'manifest.json', manifest)
     (run / 'requirements.txt').write_text(subprocess.check_output([sys.executable,'-m','pip','freeze'], text=True))
@@ -104,9 +111,16 @@ def run(args):
         process = psutil.Process()
         while not sampling_done.wait(.1):
             try:
-                peak[0] = max(peak[0], process.memory_info().rss + sum(c.memory_info().rss for c in process.children(recursive=True)))
-            except psutil.Error:
-                pass
+                rss,scope,error=sample_rss(process)
+                peak[0]=max(peak[0],rss)
+                manifest['memory_sampling']['samples']+=1
+                if scope=='parent_only':manifest['memory_sampling']['scope']='parent_only_fallback_used'
+                if error and error not in manifest['memory_sampling']['errors']:
+                    manifest['memory_sampling']['errors'].append(error)
+            except (psutil.Error,PermissionError) as exc:
+                message=type(exc).__name__+': '+str(exc)
+                if message not in manifest['memory_sampling']['errors']:
+                    manifest['memory_sampling']['errors'].append(message)
     sampler = threading.Thread(target=sample_memory, daemon=True)
     sampler.start()
     torch.set_num_threads(1)
@@ -236,6 +250,7 @@ def main():
     budget.add_argument('--active-minutes', type=float)
     p.add_argument('--budget-note', required=True, help='Who chose this budget and when')
     p.add_argument('--resume', type=Path)
+    p.add_argument('--allow-source-change', action='store_true', help='Explicitly accept reviewed runner/reporting changes; configuration and environment identity must still match')
     p.add_argument('--eval-seconds', type=float, default=300)
     args = p.parse_args()
     import math

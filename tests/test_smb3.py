@@ -70,3 +70,13 @@ def test_timed_ppo_changes_finite_weights_and_roundtrips(tmp_path):
         loaded=TimedPPO.load(tmp_path/'smoke.zip',device='cpu')
         assert all(torch.equal(a,b) for a,b in zip(model.policy.parameters(),loaded.policy.parameters()))
     finally:e.close()
+
+
+def test_memory_sampler_retains_parent_when_macos_blocks_children():
+    from types import SimpleNamespace
+    from smb3_rl.memory import sample_rss
+    class Process:
+        def memory_info(self):return SimpleNamespace(rss=12345)
+        def children(self,recursive=True):raise PermissionError('blocked by macOS')
+    rss,scope,error=sample_rss(Process())
+    assert rss==12345 and scope=='parent_only' and 'PermissionError' in error

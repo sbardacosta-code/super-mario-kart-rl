@@ -16,7 +16,7 @@ REPO = 'sbardacosta-code/super-mario-kart-rl'
 def audit():
     names = subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard'],cwd=ROOT,text=True).splitlines()
     errors = []
-    text_types = {'.py','.md','.json','.jsonl','.txt','.toml','.yml','.yaml','.sha'}
+    text_types = {'.py','.md','.json','.jsonl','.log','.txt','.toml','.yml','.yaml','.sha'}
     for name in sorted(set(names)):
         p = ROOT/name
         if p.is_symlink() or not p.is_file():

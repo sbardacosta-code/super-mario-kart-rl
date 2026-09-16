@@ -1,0 +1,79 @@
+{
+  "protocol": "smb3-1-1-v1",
+  "game": "SuperMarioBros3-1-1-v0",
+  "fps": 60,
+  "action_repeat": 4,
+  "episode_frames": 12000,
+  "actions": [
+    [
+      "NOOP"
+    ],
+    [
+      "right"
+    ],
+    [
+      "right",
+      "A"
+    ],
+    [
+      "right",
+      "B"
+    ],
+    [
+      "right",
+      "A",
+      "B"
+    ]
+  ],
+  "action_names": [
+    "coast",
+    "walk right",
+    "jump right",
+    "run right",
+    "run and jump right"
+  ],
+  "seed": 123,
+  "evaluation_seeds": [
+    101,
+    202,
+    303,
+    404,
+    505
+  ],
+  "final_seeds": [
+    6101,
+    6202,
+    6303,
+    6404,
+    6505,
+    6606,
+    6707,
+    6808,
+    6909,
+    7010
+  ],
+  "ppo": {
+    "n_steps": 512,
+    "batch_size": 64,
+    "n_epochs": 4,
+    "learning_rate": 0.00025,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.01,
+    "target_kl": 0.02
+  },
+  "reward": {
+    "progress_scale": 0.01,
+    "frame_cost": 0.0001,
+    "death_penalty": 1.0,
+    "clear_bonus": 5.0
+  },
+  "milestones_pixels": [
+    256,
+    512,
+    1024,
+    2048
+  ],
+  "validation_file": "sessions/2026-09-16-smb3-validation/validation.json"
+}

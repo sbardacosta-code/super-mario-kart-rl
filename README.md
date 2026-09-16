@@ -6,6 +6,10 @@ This repository now teaches **Super Mario Bros. 3, World 1-1**. At the user's re
 
 The original Kart preparation is preserved in [archive/kart](archive/kart/README.md), the historical setup session, and Git tag `kart-pre-smb3-20260916`. No Kart training occurred. Current code lives in `smb3_rl/`; the archived Kart scripts are historical, not the active workflow.
 
+## First pilot completed
+
+The 10.37-minute pilot included 9.46 minutes of active training. Mean progress on five fixed evaluation seeds increased from 573.6 to 754.4 pixels, but the trained policy cleared 0/5 levels and 0/10 additional-seed trials. Two paired trials regressed. [Read the report and watch the gameplay](sessions/2026-09-16-smb3-pilot/REPORT.md). The memory measurement has partial coverage, documented in the report. No longer run has been started.
+
 ## Classroom materials
 
 - [Session reports, charts and gameplay gallery](docs/classroom/README.md)

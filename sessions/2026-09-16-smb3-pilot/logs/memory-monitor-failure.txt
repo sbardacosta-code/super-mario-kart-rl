@@ -1,0 +1,4 @@
+The built-in memory sampling thread stopped with PermissionError: [Errno 1] Operation not permitted (sysctl in psutil's macOS process enumeration).
+The error occurred while calling process.children(recursive=True), before a successful peak value was stored. Its exception handler covered psutil.Error but not this raw PermissionError.
+The training process continued. The runner's peak_sampled_rss_bytes=0 is therefore unavailable data, not measured zero memory.
+An independent monitor was started during the running pilot with permission to enumerate processes. See memory-partial.json for its actual start time, coverage and measurements. It cannot recover the missing early samples.

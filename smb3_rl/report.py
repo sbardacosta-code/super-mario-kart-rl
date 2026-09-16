@@ -30,11 +30,14 @@ def gallery(e,path,target):
 
 def build(run):
     run=Path(run);m=read_json(run/'manifest.json');target=run/'REPORT.md'
+    memory_text=f"{m['peak_sampled_rss_bytes']/2**20:.1f} MiB ({m.get('memory_sampling',{}).get('scope','parent_and_children')})"
+    if (run/'memory-partial.json').exists():
+        memory_text='Full-run peak unavailable: original monitor failed; see partial-coverage measurement below'
     lines=[f"# SMB3 World 1-1 — {m['session_id']}",'',f"Session status: **{m['status']}**. This is a local CPU experiment.",'',
            '[Manifest](manifest.json) · [Configuration](config.json) · [Dependencies](requirements.txt)','',
            '## Time and work measured','',
            '| Measurement | Value |','|---|---:|',
-           f"| Total session wall time | {m.get('wall_seconds',0):.2f} s |",
+           f"| Session wall time before chart generation | {m.get('wall_seconds',0):.2f} s |",
            f"| Active training | {m['training_seconds']:.2f} s |",
            f"| Rollout collection (includes inference and traces) | {m['rollout_seconds']:.2f} s |",
            f"| Raw emulator stepping inside collection | {m.get('simulation_seconds',0):.2f} s |",
@@ -44,12 +47,15 @@ def build(run):
            f"| Training game frames | {m['training_game_frames']:,} |",
            f"| Agent decisions | {m['training_agent_decisions']:,} |",
            f"| PPO train calls / optimizer steps | {m['learning_update_calls']} / {m['optimizer_steps']} |",
-           f"| Sampled peak parent + child RSS | {m['peak_sampled_rss_bytes']/2**20:.1f} MiB |",'',
+           f"| Sampled peak RSS | {memory_text} |",'',
            'Nested timing fields overlap: raw stepping is part of collection, and collection/learning are part of active training. RSS is sampled every 100 ms; shared pages may be counted twice. Reset/setup frames are excluded from action-frame counters.', '']
+    if (run/'memory-partial.json').exists():
+        memory=read_json(run/'memory-partial.json')
+        lines += [f"**Memory limitation:** the built-in sampler failed on macOS child-process enumeration. The independent monitor observed a peak of {memory['parent_and_children_peak_rss_bytes']/2**20:.1f} MiB across {memory['observed_seconds']:.1f} seconds of late training/evaluation/reporting, starting at {memory['started_at']}. Earlier samples are missing. [Raw partial measurement](memory-partial.json) · [Failure log](logs/memory-monitor-failure.txt).",'']
     if m.get('simulation_seconds'):
         lines += [f"Raw simulation: {m['simulated_frames_per_second']:.0f} frames/s; end-to-end training: {m['training_game_frames']/m['training_seconds']:.0f} frames/s; learning: {m['optimizer_steps_per_second']:.1f} optimizer steps/s.",'']
     lines += ['## Outcomes across stages','','![Outcome and reward charts](progress.png)','',
-              'Progress is furthest horizontal displacement from the start, in pixels, not a percentage of the level. Completion is measured independently. Finishing time uses action frames / 60, only for completed levels. Training reward is plotted separately and is not a success rate.','']
+              'Error bars show the range across the five trials, not confidence intervals. Progress is furthest horizontal displacement from the start, in pixels, not a percentage of the level. Completion is measured independently. Finishing time uses action frames / 60, only for completed levels. Training reward is plotted separately and is not a success rate.','']
     points=[];previous=None
     for stage in m['stages']:
         lines += [f"## {stage['id']}",'',f"{stage['training_seconds']/60:.2f} additional active minutes. Model SHA-256: `{stage['model_sha256']}`.",'']
@@ -94,8 +100,18 @@ def build(run):
     fields=[('mean','Mean furthest progress (pixels)'),('clears','Level clears (out of 5)'),('finish','Mean finish time, successes only (s)'),('reward','Mean shaped reward — separate signal')]
     for ax,(field,label) in zip(axes.flat,fields):
         pairs=[(t,s[field]) for t,s,_ in points if s[field] is not None]
-        if pairs:ax.plot(*zip(*pairs),marker='o')
-        else:ax.text(.5,.5,'No completed levels' if field=='finish' else 'No comparable evaluations',ha='center',transform=ax.transAxes)
+        if pairs:
+            ax.plot(*zip(*pairs),marker='o')
+            if field=='mean':
+                ax.errorbar([t for t,_,_ in points],[q['mean'] for _,q,_ in points],
+                            yerr=[[q['mean']-q['min'] for _,q,_ in points],[q['max']-q['mean'] for _,q,_ in points]],
+                            fmt='none',capsize=5,alpha=.5)
+                ax.set_ylim(bottom=0)
+            if field=='clears':ax.set_ylim(0,5)
+        else:
+            ax.text(.5,.5,'No completed levels' if field=='finish' else 'No comparable evaluations',ha='center',transform=ax.transAxes)
+            ax.set_yticks([])
+            ax.set_xlim(0,max([p[0] for p in points],default=1) or 1)
         ax.set(xlabel='Additional active training (minutes)',ylabel=label);ax.grid(alpha=.25)
     fig.suptitle('SMB3 World 1-1 — all stages, including regressions')
     fig.savefig(run/'progress.png',dpi=150);plt.close(fig)

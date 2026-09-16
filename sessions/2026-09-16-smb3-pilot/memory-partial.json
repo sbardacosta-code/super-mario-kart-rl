@@ -1,0 +1,13 @@
+{
+  "started_at": "2026-09-16T18:40:06.639721+00:00",
+  "status": "finished",
+  "interval_seconds": 0.1,
+  "coverage": "Started after the built-in monitor failed; not a full-run peak.",
+  "parent_peak_rss_bytes": 256917504,
+  "parent_and_children_peak_rss_bytes": 519323648,
+  "samples": 3395,
+  "children_samples": 3395,
+  "errors": [],
+  "observed_seconds": 371.7851314580039,
+  "ended_at": "2026-09-16T18:46:18.425934+00:00"
+}
