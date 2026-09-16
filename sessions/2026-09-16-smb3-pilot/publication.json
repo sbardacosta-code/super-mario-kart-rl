@@ -1,0 +1,52 @@
+{
+  "verified_at": "2026-09-16T18:53:37.696495+00:00",
+  "verified_source_commit": "ca121b4700738030c580875190b9709b01d1067f",
+  "remote_file_hashes_match": true,
+  "verified_files": 286,
+  "local_markdown_links": "passed",
+  "public_links": [
+    {
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/blob/main/docs/classroom/README.md",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/blob/main/sessions/2026-09-16-smb3-pilot/REPORT.md",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sbardacosta-code/super-mario-kart-rl/main/sessions/2026-09-16-smb3-pilot/progress.png",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sbardacosta-code/super-mario-kart-rl/main/sessions/2026-09-16-smb3-pilot/final/trial-101-ending.gif",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/tag/models-2026-09-16-smb3-pilot",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-pilot/00-untrained.zip",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-pilot/01-stage.zip",
+      "http_status": 200,
+      "authentication": "none"
+    },
+    {
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-pilot/final.zip",
+      "http_status": 200,
+      "authentication": "none"
+    }
+  ],
+  "checkpoint_download_hashes_verified": true,
+  "checkpoint_count": 3,
+  "training_status": "stopped; no longer budget selected"
+}
