@@ -101,7 +101,12 @@ def release(session):
             if digest(downloads/path.name)!=digest(path):
                 raise RuntimeError('Downloaded release asset does not match '+path.name)
     write_json(run/'release.json',{'tag':tag,'verified_downloads':True,'models':rows})
-    print('Release downloads verified; commit release.json and add its link to the session report.')
+    lines=['# Verified model downloads','','All assets were downloaded after upload and matched their SHA-256 hashes. No ROM or emulator state is included.','',
+           f'[Open Release](https://github.com/{REPO}/releases/tag/{tag})','','| Stage | Download | SHA-256 |','|---|---|---|']
+    for row in rows:
+        lines.append(f"| {row['stage']} | [Model ZIP]({row['url']}) | `{row['sha256']}` |")
+    (run/'MODELS.md').write_text('\n'.join(lines)+'\n')
+    print('Release downloads verified; commit release.json and MODELS.md and rebuild the report.')
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)

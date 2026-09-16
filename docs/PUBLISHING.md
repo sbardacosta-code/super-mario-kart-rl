@@ -30,7 +30,7 @@ After a session has created model stages:
 .venv/bin/python -m smb3_rl.publish release --session SESSION
 ```
 
-This explicitly invokes GitHub release publication outside the gameplay loop. The script validates model hashes and ZIP members, refuses an existing release, uploads every saved stage including regressions, downloads all assets to a temporary directory, and checks their SHA-256 hashes. It writes `sessions/SESSION/release.json` only after verification. Add a link to that file and the Release in the session report, then commit and push. It never uploads arbitrary ZIPs, ROMs, save states, or the private folder. Do not count publication as complete if the command fails or download hashes disagree.
+This explicitly invokes GitHub release publication outside the gameplay loop. The script validates model hashes and ZIP members, refuses an existing release, uploads every saved stage including regressions, downloads all assets to a temporary directory, and checks their SHA-256 hashes. It writes `sessions/SESSION/release.json` and a readable `MODELS.md` download table only after verification. Add a link to that file and the Release in the session report, then commit and push. It never uploads arbitrary ZIPs, ROMs, save states, or the private folder. Do not count publication as complete if the command fails or download hashes disagree.
 
 ## Verify before saying “published”
 
