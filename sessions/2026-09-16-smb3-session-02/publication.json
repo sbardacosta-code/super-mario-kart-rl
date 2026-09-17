@@ -1,0 +1,22 @@
+{
+  "verified_at": "2026-09-17T00:36:58.802767+00:00",
+  "verified_commit": "4eb0fec5557200ade1b95756a8dcef0e76033d39",
+  "remote_blob_count": 572,
+  "remote_tree_matches_local": true,
+  "anonymous_byte_checked_files": [
+    "docs/classroom/README.md",
+    "sessions/2026-09-16-smb3-session-02/LESSON.md",
+    "sessions/2026-09-16-smb3-session-02/REPORT.md",
+    "sessions/2026-09-16-smb3-session-02/ANALYSIS.md",
+    "sessions/2026-09-16-smb3-session-02/MODELS.md",
+    "sessions/2026-09-16-smb3-session-02/progress.png",
+    "sessions/2026-09-16-smb3-session-02/training-history.png",
+    "sessions/2026-09-16-smb3-session-02/04-stage/trial-303-ending.gif"
+  ],
+  "anonymous_page_http_200": [
+    "https://github.com/sbardacosta-code/super-mario-kart-rl/blob/main/docs/classroom/README.md",
+    "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/tag/models-2026-09-16-smb3-session-02"
+  ],
+  "anonymous_release_asset_http_200_count": 6,
+  "release_download_hashes_verified": true
+}
