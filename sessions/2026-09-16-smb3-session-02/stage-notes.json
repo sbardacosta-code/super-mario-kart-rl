@@ -1,0 +1,44 @@
+{
+  "00-resumed": {
+    "changed": "Resumed the pilot final policy and optimizer state. No additional training yet. The five evaluation outcomes exactly reproduce the pilot final evaluation.",
+    "observed": "The same seed 101 replay passes the first pipe and dies later among walking enemies. The [pilot visual analysis](../2026-09-16-smb3-pilot/ANALYSIS.md) remains applicable to this repeated starting evaluation.",
+    "fails": "0/5 level clears; mean progress 754.4 pixels. The starting policy is still unreliable.",
+    "uncertain": "The emulator resets and random state is not restored as a continuous replay during training. This is continued learning from saved weights and optimizer state.",
+    "model_sha256": "37b34760f34bc1101afbf3022c2a009544d0fdba75e132c1501f064ece2de1f2"
+  },
+  "01-stage": {
+    "changed": "15.01 additional active minutes with unchanged PPO settings; cumulative decisions increased from 78,581 to 229,622.",
+    "observed": "Seed 101 now reaches the raised colored platforms and flying enemies before dying ([contact sheet](review/01-stage-101-ending.png)). Seed 404 crosses the gap before the wooden steps, then falls into the gap between wooden structures ([contact sheet](review/01-stage-404-ending.png)). Mean progress increases from 754.4 to 805.8 pixels.",
+    "fails": "0/5 clears, all deaths. Seeds 303 and 505 regress to only 87 and 84 pixels: their clips show an early jump, contact near the first walking enemy, and death ([303](01-stage/trial-303-ending.gif), [505](01-stage/trial-505-ending.gif)). Improved average progress hides these opening failures.",
+    "uncertain": "The clips show different trajectories, not why the network chose them. Five action seeds on the same level cannot establish a stable improvement or reliable completion. Longer jumps or better timing are hypotheses, not established explanations.",
+    "model_sha256": "c8942d9d616f78297ef12a176793d703026f7a37c85353915aff9fd7951d6e4d"
+  },
+  "02-stage": {
+    "model_sha256": "9ac37ce26177cd7b4ac5f313c0cf46c95130f763a50fad0b207d2002385b251b",
+    "changed": "30.01 additional active minutes, 404,899 cumulative model decisions. PPO settings, observations, actions and reward remain unchanged.",
+    "observed": "All five trials now reach at least 1,406 pixels. Mean progress rises from 805.8 to 1,645.4 pixels; no paired trial loses progress versus the 15-minute checkpoint. Seed 202 reaches the later brick structures and a red winged enemy ([contact sheet](review/02-stage-202-ending.png)).",
+    "fails": "Still 0/5 clears, all deaths. Seed 101 dies among flying enemies near the colored platforms; seed 303 falls into the gap before the wooden steps; seeds 404 and 505 fall into the gap between wooden structures ([404](02-stage/trial-404-ending.gif), [505](02-stage/trial-505-ending.gif)). Seed 202 dies near the winged enemy on a narrow brick column.",
+    "uncertain": "The disappearance of opening failures in this five-trial sample is encouraging but does not prove they are eliminated. Repeated falls suggest a location worth testing; the clips do not establish whether timing, perception or the limited action set is responsible."
+  },
+  "03-stage": {
+    "model_sha256": "677364433c0fe787d1e67d24030e829d5c3bac677baa16b3ee2e46d054b819db",
+    "changed": "45.01 additional active minutes, 584,549 cumulative model decisions. Continued PPO with the same settings; no intervention was made after the 30-minute stage.",
+    "observed": "This stage regresses in evaluation: mean progress falls from 1,645.4 to 1,161.8 pixels. Seed 101 travels only nine pixels farther and still dies near flying enemies; four other seeds lose progress.",
+    "fails": "0/5 clears, all deaths. Seeds 202 and 404 die near the red winged enemy in the open area before the gaps ([202 review](review/03-stage-202-ending.png), [404 review](review/03-stage-404-ending.png)). Seed 303 again falls into the gap before the wooden steps; seed 505 falls in an earlier gap.",
+    "uncertain": "A worse checkpoint demonstrates non-monotonic performance on this fixed sample; it does not identify catastrophic forgetting or prove that the learning rate is wrong. Additional action samples and training runs would be needed to characterize the regression."
+  },
+  "04-stage": {
+    "model_sha256": "79b6df4826090153f2fe39a9a55fd0bd6f8c0a664505c5e6671462b948e956cc",
+    "changed": "60.00 additional active minutes, 752,019 cumulative model decisions. This completes the approved hour with unchanged settings.",
+    "observed": "Mean progress recovers to 2,211.6 pixels, versus 1,161.8 at 45 minutes. All five paired trials improve in distance. Seed 303 reaches the goal-card area but remains at the far-right edge until the episode frame limit ([review](review/04-stage-303-ending.png)).",
+    "fails": "0/5 clears: four deaths and one frame limit. Seed 101 falls between wooden structures; seeds 202, 404 and 505 fall at the narrow gap beside the tall pipes. The final additional seeds also yield 0/10 clears (seven deaths, three frame limits), including an opening failure in seed 7010.",
+    "uncertain": "The goal-card clip shows Mario to the right of the uncollected card. The last 750 decisions of seed 303 keep x=2792. With no left action he cannot return to it; this is a concrete action-set limitation, not proof that adding left alone will solve the task. The other collision and gap failures remain."
+  },
+  "final": {
+    "model_sha256": "2086c553c2f2f795861a991e8c5b0253154526fdca5524a27833fa890c12b2fa",
+    "changed": "No learning after 04-stage. Its policy weights and this final save have identical SHA-256; the repeated five-seed evaluation matches. This save is not another improvement.",
+    "observed": "Mean progress recovers to 2,211.6 pixels, versus 1,161.8 at 45 minutes. All five paired trials improve in distance. Seed 303 reaches the goal-card area but remains at the far-right edge until the episode frame limit ([review](review/04-stage-303-ending.png)).",
+    "fails": "0/5 clears: four deaths and one frame limit. Seed 101 falls between wooden structures; seeds 202, 404 and 505 fall at the narrow gap beside the tall pipes. The final additional seeds also yield 0/10 clears (seven deaths, three frame limits), including an opening failure in seed 7010.",
+    "uncertain": "The goal-card clip shows Mario to the right of the uncollected card. The last 750 decisions of seed 303 keep x=2792. With no left action he cannot return to it; this is a concrete action-set limitation, not proof that adding left alone will solve the task. The other collision and gap failures remain."
+  }
+}

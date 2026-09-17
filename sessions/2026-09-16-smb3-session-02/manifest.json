@@ -1,0 +1,352 @@
+{
+  "status": "completed",
+  "at": "2026-09-16T23:15:10.100907+00:00",
+  "session_id": "2026-09-16-smb3-session-02",
+  "pid": 58657,
+  "config": {
+    "protocol": "smb3-1-1-v1",
+    "game": "SuperMarioBros3-1-1-v0",
+    "fps": 60,
+    "action_repeat": 4,
+    "episode_frames": 12000,
+    "actions": [
+      [
+        "NOOP"
+      ],
+      [
+        "right"
+      ],
+      [
+        "right",
+        "A"
+      ],
+      [
+        "right",
+        "B"
+      ],
+      [
+        "right",
+        "A",
+        "B"
+      ]
+    ],
+    "action_names": [
+      "coast",
+      "walk right",
+      "jump right",
+      "run right",
+      "run and jump right"
+    ],
+    "seed": 123,
+    "evaluation_seeds": [
+      101,
+      202,
+      303,
+      404,
+      505
+    ],
+    "final_seeds": [
+      6101,
+      6202,
+      6303,
+      6404,
+      6505,
+      6606,
+      6707,
+      6808,
+      6909,
+      7010
+    ],
+    "ppo": {
+      "n_steps": 512,
+      "batch_size": 64,
+      "n_epochs": 4,
+      "learning_rate": 0.00025,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "clip_range": 0.2,
+      "ent_coef": 0.01,
+      "target_kl": 0.02
+    },
+    "reward": {
+      "progress_scale": 0.01,
+      "frame_cost": 0.0001,
+      "death_penalty": 1.0,
+      "clear_bonus": 5.0
+    },
+    "milestones_pixels": [
+      256,
+      512,
+      1024,
+      2048
+    ],
+    "validation_file": "sessions/2026-09-16-smb3-validation/validation.json"
+  },
+  "kind": "approved training",
+  "budget_note": "User approved 60 additional active minutes with unchanged PPO/game settings and 15-minute milestones on 2026-09-16. Reviewed post-pilot source changes: memory-sampling fallback, explicit resume provenance, and classroom reporting only.",
+  "requested_active_seconds": 3600.0,
+  "source_revision": "1345ed58fb7c54b651f60dd61e56a510bd1f9072",
+  "source_hashes": {
+    "smb3_rl/__init__.py": "c302932d707e2c4292ec9cf8f3d0699e0887e5f4e3f388ab2feb35393b0255ff",
+    "smb3_rl/common.py": "8b76d60a89789cdfb21ba7af20490c8ad665cf8a7acb19c35a62fe3dfb6bc34e",
+    "smb3_rl/env.py": "8effe7eed15feaace2d6ecb35737f2df7936e444d3215e2b0e00872a817b5d1c",
+    "smb3_rl/evaluate.py": "d5bbf861efe879e9ed7319561ce45757d3a2aac89a0a52946e1e05845c788d00",
+    "smb3_rl/lesson.py": "95138e0bb49392994623cc5405eef7b112186a2ffa5f1da9db8c257f63135c33",
+    "smb3_rl/memory.py": "ac9d5565cb3a890c71bd92fcb61c7462ef24e042cccab371d757c5aed6c722a1",
+    "smb3_rl/publish.py": "a2628fee60ce0d37e52a9f6e0e20263064cac81a5337305b6b4da5807935bfdb",
+    "smb3_rl/report.py": "53db118e04a9170640f2eb1da85fe5934720b7484e47b2bba2b89ee52258631f",
+    "smb3_rl/session.py": "b7ecf7709e8e3c0cb87a0a1a6fb4092aae0d269d94c238b8259666b28411fb4c",
+    "smb3_rl/validate.py": "38b3065ba1f5d917a42e6d274281279dff28e8a9a3bdbc76abdb2eb8286a33d1",
+    "configs/smb3-1-1.json": "0c368449f1cd06539e661941010ff3a39e6072023855d0b3f40d4e6a9beca124",
+    "requirements-lock.txt": "8ff85b9d1a7e24d734af9b91fa44c4b8d83abdcbcd000550894a46fc6cdbf630"
+  },
+  "validation": {
+    "at": "2026-09-16T18:35:01.826437+00:00",
+    "status": "passed",
+    "identity": {
+      "config_sha256": "03ec089a2bed347abfb7a107ca43d25642208a0972eba2746cefbf4f81b480c9",
+      "rom_sha256": "6ea0777ca520ba7ad7b0ea0f6452140d59aa0b1dffe5045cb1e8020dde10c267",
+      "installed_environment_sha256": "d38535d08b3ebc32c4b0a5b23d9491d454f95e8024af18244865405794ab0d18",
+      "adapter_sha256": "8effe7eed15feaace2d6ecb35737f2df7936e444d3215e2b0e00872a817b5d1c",
+      "versions": {
+        "gym-super-mario-bros": "9.1.0",
+        "nes-py": "9.0.1",
+        "gymnasium": "1.3.0",
+        "stable-baselines3": "2.9.0",
+        "torch": "2.14.0",
+        "numpy": "2.5.3",
+        "pillow": "12.3.0"
+      }
+    },
+    "checks": {
+      "gymnasium_api": "passed",
+      "ten_resets_and_120_frame_replays_identical": true,
+      "right_moves": true,
+      "run_faster_than_walk": true,
+      "jump_changes_vertical_position": true,
+      "false_clear_replay_is_death_not_success": true,
+      "timeout_exact_frames": true,
+      "repeated_progress_not_rewarded_twice": true,
+      "map_does_not_reward_progress": true,
+      "scripted_level_clear": true,
+      "pixel_stack": true
+    },
+    "reset_replay_hashes": [
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f",
+      "1aec2cfb462765f57f0f96f95742a24f7cf324f1e28c5fe2ffa817d7dfe1ca3f"
+    ],
+    "controls": {
+      "coast": {
+        "max_x": 24,
+        "y_range": [
+          384,
+          384
+        ]
+      },
+      "walk right": {
+        "max_x": 103,
+        "y_range": [
+          384,
+          384
+        ]
+      },
+      "jump right": {
+        "max_x": 103,
+        "y_range": [
+          313,
+          384
+        ]
+      },
+      "run right": {
+        "max_x": 108,
+        "y_range": [
+          384,
+          384
+        ]
+      },
+      "run and jump right": {
+        "max_x": 108,
+        "y_range": [
+          313,
+          384
+        ]
+      }
+    },
+    "scripted_clear_outcome": {
+      "card_selection": 0,
+      "flag_get": true,
+      "flight_timer": 0,
+      "in_level": false,
+      "invulnerability_timer": 0,
+      "is_dying": false,
+      "is_game_over": false,
+      "life": 4,
+      "lives": 4,
+      "map_x": 64,
+      "map_y": 32,
+      "p_meter": 0,
+      "p_meter_full": false,
+      "p_meter_timer": 0,
+      "pipe_timer": 0,
+      "powerup_level": 0,
+      "score": 13350,
+      "stage": 1,
+      "star_timer": 0,
+      "status": "small",
+      "status_value": 0,
+      "time": 0,
+      "world": 1,
+      "x_page": 32,
+      "x_pos": 64,
+      "x_pos_max": 64,
+      "x_screen": 0,
+      "y_page": 0,
+      "y_pos": 32,
+      "y_screen": 0,
+      "clear": true,
+      "death": false,
+      "game": "smb3",
+      "game_family": "smb3",
+      "progress": 64,
+      "progress_max": 64,
+      "rom_mode": "vanilla",
+      "single_stage": true,
+      "task_id": "SuperMarioBros3-1-1-v0",
+      "target_stage": 1,
+      "target_world": 1,
+      "timeout": false,
+      "world_label": "1",
+      "reward_components": {
+        "progress": 0.0,
+        "time": 0.0,
+        "score": 0.0,
+        "powerup": 0.0,
+        "completion": 50.0,
+        "death": 0.0
+      },
+      "reward_total_unclipped": 50.0,
+      "reward_total_clipped": 15.0,
+      "frames": 2236,
+      "decisions": 559,
+      "frames_advanced": 4,
+      "max_x": 2844,
+      "progress_pixels": 2820,
+      "milestones_reached": 4,
+      "level_complete": true,
+      "telemetry_invalid": false,
+      "finish_seconds": 37.266666666666666,
+      "termination_reason": "clear",
+      "terminated": true,
+      "truncated": false,
+      "native_reward": 15.0
+    },
+    "post_terminal_map_image_delay_frames": 60,
+    "notes": [
+      "Nominal 60 emulated frames/s; no claim that wall time equals game time.",
+      "Scripted successful controller is validation evidence, not PPO training or an evaluated learned model.",
+      "Stage-specific correction requires exact World 1-1 map-panel coordinates before declaring success."
+    ]
+  },
+  "parent_model_sha256": "2e8a5244bad04fcc92f378637b62bb9a7484186b174de05ee82bd4ccfe87f878",
+  "stages": [
+    {
+      "id": "00-resumed",
+      "model_sha256": "37b34760f34bc1101afbf3022c2a009544d0fdba75e132c1501f064ece2de1f2",
+      "model_path": "sessions/2026-09-16-smb3-session-02/checkpoints/00-resumed.zip",
+      "training_seconds": 0.0,
+      "status": "complete",
+      "total_model_decisions": 78581,
+      "evaluation": "sessions/2026-09-16-smb3-session-02/00-resumed/evaluation.json"
+    },
+    {
+      "id": "01-stage",
+      "model_sha256": "c8942d9d616f78297ef12a176793d703026f7a37c85353915aff9fd7951d6e4d",
+      "model_path": "sessions/2026-09-16-smb3-session-02/checkpoints/01-stage.zip",
+      "training_seconds": 900.6559477080009,
+      "status": "complete",
+      "total_model_decisions": 229622,
+      "evaluation": "sessions/2026-09-16-smb3-session-02/01-stage/evaluation.json"
+    },
+    {
+      "id": "02-stage",
+      "model_sha256": "9ac37ce26177cd7b4ac5f313c0cf46c95130f763a50fad0b207d2002385b251b",
+      "model_path": "sessions/2026-09-16-smb3-session-02/checkpoints/02-stage.zip",
+      "training_seconds": 1800.6599090829986,
+      "status": "complete",
+      "total_model_decisions": 404899,
+      "evaluation": "sessions/2026-09-16-smb3-session-02/02-stage/evaluation.json"
+    },
+    {
+      "id": "03-stage",
+      "model_sha256": "677364433c0fe787d1e67d24030e829d5c3bac677baa16b3ee2e46d054b819db",
+      "model_path": "sessions/2026-09-16-smb3-session-02/checkpoints/03-stage.zip",
+      "training_seconds": 2700.66231354099,
+      "status": "complete",
+      "total_model_decisions": 584549,
+      "evaluation": "sessions/2026-09-16-smb3-session-02/03-stage/evaluation.json"
+    },
+    {
+      "id": "04-stage",
+      "model_sha256": "79b6df4826090153f2fe39a9a55fd0bd6f8c0a664505c5e6671462b948e956cc",
+      "model_path": "sessions/2026-09-16-smb3-session-02/checkpoints/04-stage.zip",
+      "training_seconds": 3600.0022253329953,
+      "status": "complete",
+      "total_model_decisions": 752019,
+      "evaluation": "sessions/2026-09-16-smb3-session-02/04-stage/evaluation.json"
+    },
+    {
+      "id": "final",
+      "model_sha256": "2086c553c2f2f795861a991e8c5b0253154526fdca5524a27833fa890c12b2fa",
+      "model_path": "sessions/2026-09-16-smb3-session-02/checkpoints/final.zip",
+      "training_seconds": 3600.0022253329953,
+      "status": "complete",
+      "total_model_decisions": 752019,
+      "evaluation": "sessions/2026-09-16-smb3-session-02/final/evaluation.json"
+    }
+  ],
+  "training_seconds": 3600.0022253329953,
+  "evaluation_seconds": 124.42091295898717,
+  "rollout_seconds": 2466.086790297122,
+  "learning_seconds": 1132.483014210302,
+  "optimizer_steps": 26418,
+  "learning_update_calls": 1314,
+  "training_game_frames": 2690381,
+  "training_agent_decisions": 673438,
+  "checkpoint_seconds": 0.20669612601341214,
+  "peak_sampled_rss_bytes": 373456896,
+  "memory_sampling": {
+    "samples": 34786,
+    "scope": "parent_only_fallback_used",
+    "errors": [
+      "PermissionError: [Errno 1] Operation not permitted (originated from sysctl() malloc 1/3)"
+    ]
+  },
+  "source_change_accepted": true,
+  "parent_source_hashes": {
+    "smb3_rl/__init__.py": "c302932d707e2c4292ec9cf8f3d0699e0887e5f4e3f388ab2feb35393b0255ff",
+    "smb3_rl/common.py": "8b76d60a89789cdfb21ba7af20490c8ad665cf8a7acb19c35a62fe3dfb6bc34e",
+    "smb3_rl/env.py": "8effe7eed15feaace2d6ecb35737f2df7936e444d3215e2b0e00872a817b5d1c",
+    "smb3_rl/evaluate.py": "d5bbf861efe879e9ed7319561ce45757d3a2aac89a0a52946e1e05845c788d00",
+    "smb3_rl/publish.py": "40fa1891fe463fda257e4f0432750e7e2a063aac032c835e5ffb870cabb0f8d4",
+    "smb3_rl/report.py": "ec91c5c1cde02dd6b6f73fc5607c28c6f5332fd8ad1fc4839098a276db6f5062",
+    "smb3_rl/session.py": "d692a94ee44a36781f4517979e8f21350675b239686f8b09f7b0e61e03b8e97f",
+    "smb3_rl/validate.py": "38b3065ba1f5d917a42e6d274281279dff28e8a9a3bdbc76abdb2eb8286a33d1",
+    "configs/smb3-1-1.json": "0c368449f1cd06539e661941010ff3a39e6072023855d0b3f40d4e6a9beca124",
+    "requirements-lock.txt": "8ff85b9d1a7e24d734af9b91fa44c4b8d83abdcbcd000550894a46fc6cdbf630"
+  },
+  "wall_seconds": 3726.314807540999,
+  "run_right_baseline": "sessions/2026-09-16-smb3-session-02/hold-run-right/evaluation.json",
+  "simulation_seconds": 1738.4722273588122,
+  "training_reset_calls": 2262,
+  "simulated_frames_per_second": 1547.5547769246696,
+  "optimizer_steps_per_second": 23.327502195184522,
+  "final_additional_trials": "sessions/2026-09-16-smb3-session-02/final-additional-trials/evaluation.json"
+}

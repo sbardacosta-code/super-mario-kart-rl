@@ -39,3 +39,21 @@ The complete run used source revision `ed371874407e8d96d95e973cc3f26847300265b4`
 Read the separate Mario Bros. 1 reporting code and classroom report without modifying that project. Added a teaching-first SMB3 timeline, median/range alongside mean progress, paired seed regression tables, side-by-side beginning/end GIFs with exact decision ranges, and checkpoint-specific observed behavior, remaining failures and hypotheses. Reviewed notes are preserved separately and bound to model hashes; new or unmatched stages explicitly await visual review. All original measurements, models and clips are unchanged.
 
 The existing runner already checkpoints approximately every 900 seconds of additional active training. The short pilot is labeled with its actual 9.46 minutes; no fictional 15-minute interval was inserted and no further training was launched.
+
+## 2026-09-16 — Approved continuation, first 15-minute checkpoint
+
+The user approved 60 additional active minutes with unchanged PPO settings. Session 02 resumes the pilot final model; its initial evaluation exactly reproduces the prior five outcomes. At 900.66 active seconds, mean progress is 805.8 versus 754.4 pixels, but completion remains 0/5. Seeds 303 and 505 regress severely and fail near the first walking enemy; reviewed clips also show longer trajectories for seeds 101 and 404. No parameter change is made. Training is ongoing within the approved budget; remaining checkpoints and final review are pending. [Session analysis](../sessions/2026-09-16-smb3-session-02/ANALYSIS.md).
+
+## 2026-09-16 — 30-minute continuation checkpoint
+
+At 1,800.66 active seconds, all five evaluation trials reach 1,406–2,061 pixels; mean progress is 1,645.4 versus 805.8 at 15 minutes. No paired trial regresses in progress, but all five still die. Visual review locates failures among flying enemies and at gaps around the wooden steps. The opening failures seen at 15 minutes are absent in this small sample, not proven eliminated. All settings remain fixed; training continues within the approved hour.
+
+## 2026-09-17 UTC — 45-minute continuation regression
+
+At 2,700.66 active seconds, mean evaluation progress falls from 1,645.4 to 1,161.8 pixels; four of five paired trials regress, and clears remain 0/5. Clips show earlier enemy-contact failures and repeated gap falls. The cause is not established. Both the stronger 30-minute checkpoint and this regression are preserved. The final approved segment is running with unchanged parameters.
+
+## 2026-09-17 UTC — Approved hour complete
+
+Session 02 stopped after 3,600.002 active seconds (62.105 wall minutes before charts). Final fixed-seed mean progress reached 2,211.6 pixels, recovering from the 45-minute regression, but there were 0/5 clears; additional seeds also produced 0/10 clears. All evaluations completed. The final save duplicates the 60-minute policy weights.
+
+Visual review identified a concrete limitation: some runs pass the goal card and remain at the far-right boundary until the frame limit, with no leftward action available to return. Other trials still collide with enemies or fall in gaps. Training telemetry includes one clear among 2,261 completed episodes, distinct from the final-policy evaluation; no clip of that training success was recorded. The memory fallback recorded parent-only peak RSS because macOS blocked child enumeration. All stages, including the 45-minute regression, are preserved. No further training was launched.

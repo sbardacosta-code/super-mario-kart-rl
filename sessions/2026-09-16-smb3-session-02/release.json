@@ -1,0 +1,36 @@
+{
+  "tag": "models-2026-09-16-smb3-session-02",
+  "verified_downloads": true,
+  "models": [
+    {
+      "stage": "00-resumed",
+      "sha256": "37b34760f34bc1101afbf3022c2a009544d0fdba75e132c1501f064ece2de1f2",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-session-02/00-resumed.zip"
+    },
+    {
+      "stage": "01-stage",
+      "sha256": "c8942d9d616f78297ef12a176793d703026f7a37c85353915aff9fd7951d6e4d",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-session-02/01-stage.zip"
+    },
+    {
+      "stage": "02-stage",
+      "sha256": "9ac37ce26177cd7b4ac5f313c0cf46c95130f763a50fad0b207d2002385b251b",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-session-02/02-stage.zip"
+    },
+    {
+      "stage": "03-stage",
+      "sha256": "677364433c0fe787d1e67d24030e829d5c3bac677baa16b3ee2e46d054b819db",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-session-02/03-stage.zip"
+    },
+    {
+      "stage": "04-stage",
+      "sha256": "79b6df4826090153f2fe39a9a55fd0bd6f8c0a664505c5e6671462b948e956cc",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-session-02/04-stage.zip"
+    },
+    {
+      "stage": "final",
+      "sha256": "2086c553c2f2f795861a991e8c5b0253154526fdca5524a27833fa890c12b2fa",
+      "url": "https://github.com/sbardacosta-code/super-mario-kart-rl/releases/download/models-2026-09-16-smb3-session-02/final.zip"
+    }
+  ]
+}
